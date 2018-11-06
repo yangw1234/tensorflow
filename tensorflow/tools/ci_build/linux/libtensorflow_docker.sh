@@ -30,7 +30,7 @@ source "${SCRIPT_DIR}/../builds/builds_common.sh"
 DOCKER_CONTEXT_PATH="$(realpath ${SCRIPT_DIR}/..)"
 ROOT_DIR="$(realpath ${SCRIPT_DIR}/../../../../)"
 
-DOCKER_IMAGE="tf-libtensorflow-cpu"
+DOCKER_IMAGE="tf-libtensorflow-cpu-base:14.04"
 DOCKER_FILE="Dockerfile.cpu"
 DOCKER_BINARY="docker"
 if [ "${TF_NEED_CUDA}" == "1" ]; then
@@ -39,12 +39,14 @@ if [ "${TF_NEED_CUDA}" == "1" ]; then
   DOCKER_FILE="Dockerfile.gpu"
 fi
 
-docker build \
+docker build --network=host \
   -t "${DOCKER_IMAGE}" \
   -f "${DOCKER_CONTEXT_PATH}/${DOCKER_FILE}" \
   "${DOCKER_CONTEXT_PATH}"
 
+
 ${DOCKER_BINARY} run \
+  --network=host \
   --rm \
   --pid=host \
   -v ${ROOT_DIR}:/workspace \

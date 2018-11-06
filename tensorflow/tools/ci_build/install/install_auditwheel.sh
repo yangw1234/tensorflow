@@ -16,7 +16,7 @@
 
 set -e
 
-sudo pip3 install auditwheel==1.5.0
+sudo -E pip3 install auditwheel==1.5.0
 
 set +e
 patchelf_location=$(which patchelf)

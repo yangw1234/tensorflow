@@ -6,10 +6,10 @@
   <parent>
     <groupId>org.tensorflow</groupId>
     <artifactId>parentpom</artifactId>
-    <version>1.9.0</version>
+    <version>1.10.0</version>
     <relativePath>../</relativePath>
   </parent>
-  <artifactId>libtensorflow_jni</artifactId>
+  <artifactId>libtensorflow_jni_mkl</artifactId>
   <packaging>jar</packaging>
 </project>
 

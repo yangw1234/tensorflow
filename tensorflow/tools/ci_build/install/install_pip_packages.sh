@@ -16,10 +16,27 @@
 
 set -e
 
+mkdir ~/.pip
+
+touch ~/.pip/pip.conf
+
+echo "[global]" >> ~/.pip/pip.conf
+echo "trusted-host =  mirrors.aliyun.com" >> ~/.pip/pip.conf
+echo "index-url = http://mirrors.aliyun.com/pypi/simple" >> ~/.pip/pip.conf
+
+
 # We don't apt-get install so that we can install a newer version of pip.
 # Only needed for Ubuntu 14.04 and 16.04; not needed for 18.04 and Debian 8,9?
-easy_install -U pip==9.0.3
-easy_install3 -U pip==9.0.3
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+python get-pip.py pip==9.0.3
+python3 get-pip.py pip==9.0.3
+
+# apt-get remove --yes --no-install-recommends python-pip
+# apt-get remove --yes --no-install-recommends python3-pip
+# easy_install -U pip==9.0.3
+# easy_install3 -U pip==9.0.3
 
 # Install pip packages from whl files to avoid the time-consuming process of
 # building from source.

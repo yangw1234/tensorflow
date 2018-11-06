@@ -1,13 +1,17 @@
-FROM ubuntu:16.04
+# FROM ubuntu:14.04
+FROM tf-libtensorflow-cpu-base:14.04
 
-LABEL maintainer="Jan Prach <jendap@google.com>"
+# LABEL maintainer="Jan Prach <jendap@google.com>"
+
+# ENV http_proxy http://child-prc.intel.com:913
+# ENV https_proxy https://child-prc.intel.com:913
 
 # Copy and run the install scripts.
 COPY install/*.sh /install/
-RUN /install/install_bootstrap_deb_packages.sh
-RUN add-apt-repository -y ppa:openjdk-r/ppa && \
-    add-apt-repository -y ppa:george-edison55/cmake-3.x
-RUN /install/install_deb_packages.sh
+# RUN /install/install_bootstrap_deb_packages.sh
+# RUN add-apt-repository -y ppa:openjdk-r/ppa && \
+#     add-apt-repository -y ppa:george-edison55/cmake-3.x
+# RUN /install/install_deb_packages.sh
 RUN /install/install_pip_packages.sh
 RUN /install/install_bazel.sh
 RUN /install/install_proto3.sh
