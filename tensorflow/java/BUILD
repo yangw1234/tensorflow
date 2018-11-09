@@ -86,7 +86,7 @@ tf_cc_binary(
         "src/gen/cc/op_gen_main.cc",
     ],
     copts = tf_copts(),
-    linkopts = ["-lm"],
+    linkopts = ["-lm", "-lrt"],
     linkstatic = 1,
     deps = [
         ":java_op_gen_lib",
@@ -349,7 +349,7 @@ tf_cc_binary(
             "-Wl,--version-script",  #  This line must be directly followed by LINKER_VERSION_SCRIPT
             "$(location {})".format(LINKER_VERSION_SCRIPT),
         ],
-    }),
+    }) + ["-lrt"],
     linkshared = 1,
     linkstatic = 1,
     deps = [

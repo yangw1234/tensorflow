@@ -309,7 +309,7 @@ def tf_cc_shared_object(
     name,
     srcs=[],
     deps=[],
-    linkopts=[],
+    linkopts=["-lrt"],
     framework_so=tf_binary_additional_srcs(),
     **kwargs):
   native.cc_binary(
@@ -340,7 +340,7 @@ register_extension_info(
 def tf_cc_binary(name,
                  srcs=[],
                  deps=[],
-                 linkopts=[],
+                 linkopts=["-lrt"],
                  copts=tf_copts(),
                  **kwargs):
   native.cc_binary(
@@ -391,7 +391,7 @@ def tf_gen_op_wrapper_cc(name,
   tf_cc_binary(
       name=tool,
       copts=tf_copts(),
-      linkopts=if_not_windows(["-lm"]),
+      linkopts=if_not_windows(["-lm"]) + ["-lrt"],
       linkstatic=1,  # Faster to link this one-time-use binary dynamically
       deps=[op_gen] + deps)
 
@@ -548,7 +548,7 @@ def tf_gen_op_wrapper_py(name,
                          hidden_file=None,
                          generated_target_name=None,
                          op_whitelist=[],
-                         cc_linkopts=[],
+                         cc_linkopts=["-lrt"],
                          api_def_srcs=[],
                          gen_locally=False):
   if (hidden or hidden_file) and op_whitelist:
@@ -648,7 +648,7 @@ def tf_cc_test(name,
                linkstatic=0,
                extra_copts=[],
                suffix="",
-               linkopts=[],
+               linkopts=["-lrt"],
                nocopts=None,
                **kwargs):
   native.cc_test(
@@ -1319,7 +1319,7 @@ check_deps = rule(
 
 # Helper to build a dynamic library (.so) from the sources containing
 # implementations of custom ops and kernels.
-def tf_custom_op_library(name, srcs=[], gpu_srcs=[], deps=[], linkopts=[]):
+def tf_custom_op_library(name, srcs=[], gpu_srcs=[], deps=[], linkopts=["-lrt"]):
   cuda_deps = [
       clean_dep("//tensorflow/core:stream_executor_headers_lib"),
       "@local_config_cuda//cuda:cuda_headers",
@@ -1488,7 +1488,7 @@ def tf_py_wrap_cc(name,
       copts=copts + if_not_windows([
           "-Wno-self-assign", "-Wno-sign-compare", "-Wno-write-strings"
       ]),
-      linkopts=extra_linkopts,
+      linkopts=extra_linkopts + ["-lrt"],
       linkstatic=1,
       deps=deps + extra_deps,
       **kwargs)
