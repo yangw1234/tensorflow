@@ -17,6 +17,15 @@ cc_library(
     visibility = ["//visibility:public"],
 )
 
+filegroup(
+    name = "mkl_libs_linux_file",
+    srcs = [
+        "lib/libiomp5.so",
+        "lib/libmklml_intel.so",
+    ],
+    visibility = ["//visibility:public"],
+)
+
 cc_library(
     name = "mkl_libs_linux",
     srcs = [
