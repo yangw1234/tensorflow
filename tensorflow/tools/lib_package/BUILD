@@ -46,10 +46,10 @@ pkg_tar(
             "@mkl_linux//:mkl_libs_linux_file",
          ],
         "@org_tensorflow//tensorflow:macos": [
-            "@mkl_linux//:mkl_libs_darwin_file",
+            "@mkl_darwin//:mkl_libs_darwin_file",
         ],
         "@org_tensorflow//tensorflow:windows": [
-            "@mkl_linux//:mkl_libs_windows_file",
+            "@mkl_windows//:mkl_libs_windows_file",
         ],
     }),
     extension = "tar.gz",
